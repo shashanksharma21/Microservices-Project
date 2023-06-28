@@ -1,0 +1,5 @@
+package com.product.service.config;
+
+public class SpringSecurityConfig {
+
+}

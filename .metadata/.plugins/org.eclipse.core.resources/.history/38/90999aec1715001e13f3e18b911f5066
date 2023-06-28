@@ -1,0 +1,21 @@
+package com.product.service.response.dto;
+
+import org.springframework.http.HttpStatus;
+
+import com.security.library.response.dto.CommonErrorResponse;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CommonErrorResponse {
+
+	private String message;
+	private Boolean success;
+	private HttpStatus status;
+	private Integer statusCode;
+	
+}

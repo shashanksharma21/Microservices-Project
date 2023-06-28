@@ -1,0 +1,20 @@
+package com.user.service.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+@RestController
+@RequestMapping("/auth")
+@SuppressWarnings("unchecked")
+public class LoginController {
+
+
+	@Autowired
+	private LoginService<T> loginService;
+	
+	@PostMapping("/login")
+	public ResponseEntity<T> login(@RequestBody LoginRequest loginRequest) {
+		Object login = this.loginService.login(loginRequest);
+		return (ResponseEntity<T>) ResponseEntity.ok(login);
+	}
+}

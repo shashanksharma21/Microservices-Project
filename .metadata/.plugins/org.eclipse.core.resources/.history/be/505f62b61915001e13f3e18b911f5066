@@ -1,0 +1,6 @@
+package com.user.service.services;
+
+public interface LoginService {
+	T login(LoginRequest request);
+
+}

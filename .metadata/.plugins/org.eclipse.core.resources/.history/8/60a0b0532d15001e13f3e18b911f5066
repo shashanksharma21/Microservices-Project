@@ -1,0 +1,59 @@
+package com.product.service.services.impl;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.product.service.dto.ProductDto;
+import com.product.service.entities.Product;
+import com.product.service.exceptions.ResourceNotFoundException;
+import com.product.service.normal.response.dto.ProductResponseDto;
+import com.product.service.repositories.ProductRepository;
+import com.product.service.services.ProductService;
+
+@Service
+public class ProductServiceImpl<T> implements ProductService<T> {
+
+	@Autowired
+	private ProductRepository productRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public T createProduct(ProductDto productDto) {
+		System.out.println("PRODUCT:"+product);
+		Product product = this.modelMapper.map(productDto, Product.class);
+		product.setProductId(UUID.randomUUID().toString());
+		Product savedProduct = this.productRepository.save(product);
+		
+		System.out.println("SAVE:"+ savedProduct);
+		return (T) this.modelMapper.map(savedProduct, ProductResponseDto.class);
+	}
+
+	@Override
+	public T getAllProducts() {
+		List<Product> allProducts = this.productRepository.findAll();
+		List<ProductResponseDto> allProductDtos = allProducts.stream().map( product -> this.modelMapper.map(product, ProductResponseDto.class)).collect(Collectors.toList());
+		return (T) allProductDtos;
+	}
+
+	@Override
+	public T getProductById(String productId) {
+		Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product", "product_id", productId));
+		return (T) this.modelMapper.map(product, ProductResponseDto.class);
+	}
+
+
+	@Override
+	public T deleteProduct(String productId) {
+		Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product", "product_id", productId));
+		this.productRepository.delete(product);
+		return (T) this.modelMapper.map(product, ProductResponseDto.class);
+	}
+	
+}

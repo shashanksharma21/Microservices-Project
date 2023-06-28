@@ -1,0 +1,20 @@
+package com.product.service.services;
+
+import com.product.service.entities.Product;
+
+public interface ProductService<T> {
+
+	// CREATE
+	T createProduct(Product productDto);
+	
+	// GET ALL
+	T getAllProducts();
+	
+	// GET BY ID
+	T getProductById(String productId);
+	
+	// DELETE
+	T deleteProduct(String productId);
+	
+	
+}

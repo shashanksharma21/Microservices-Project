@@ -1,0 +1,4 @@
+FROM openjdk:17
+ENV PATH "$PATH:/static/image"
+ADD target/product-service.jar product-service.jar
+ENTRYPOINT [ "java" , "-jar", "product-service.jar"]

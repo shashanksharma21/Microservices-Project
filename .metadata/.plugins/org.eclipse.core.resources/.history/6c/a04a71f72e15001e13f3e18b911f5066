@@ -1,0 +1,16 @@
+server:
+  port: 8082
+  
+spring:
+  jwtConfig:
+    token-validity: 300000
+    refresh-token-validity: 600000
+    secret-key: secretkey
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce_app
+    username: root
+    password: tiger
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
